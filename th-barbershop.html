@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TH Barbershop – Saint-Georges de Beauce</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #0d0d0d;
+    --charbon: #1a1a1a;
+    --or: #c9a84c;
+    --or-clair: #e8c97a;
+    --blanc: #f5f0e8;
+    --gris: #888;
+    --rouge: #c0392b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--noir);
+    color: var(--blanc);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13,13,13,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--or);
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(201,168,76,0.4);
+  }
+
+  .logo span {
+    color: var(--blanc);
+    font-size: 0.8rem;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    letter-spacing: 4px;
+    display: block;
+    text-transform: uppercase;
+    margin-top: -4px;
+  }
+
+  .menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .menu-btn div {
+    width: 26px;
+    height: 2px;
+    background: var(--or);
+    transition: 0.3s;
+  }
+
+  /* ── NAV MOBILE ── */
+  nav {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 75%;
+    height: 100vh;
+    background: var(--charbon);
+    border-left: 1px solid rgba(201,168,76,0.3);
+    z-index: 200;
+    transition: right 0.4s ease;
+    padding: 80px 32px 32px;
+  }
+
+  nav.open { right: 0; }
+
+  nav a {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--blanc);
+    text-decoration: none;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--or); }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 150;
+  }
+
+  .overlay.show { display: block; }
+
+  .close-nav {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: none;
+    border: none;
+    color: var(--or);
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 60px;
+    background: 
+      radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 60%),
+      linear-gradient(180deg, #0d0d0d 0%, #1a1209 50%, #0d0d0d 100%);
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(201,168,76,0.03) 60px, rgba(201,168,76,0.03) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(201,168,76,0.03) 60px, rgba(201,168,76,0.03) 61px);
+  }
+
+  .scissors-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 10vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--or);
+    text-shadow: 0 4px 40px rgba(201,168,76,0.5);
+    letter-spacing: 3px;
+  }
+
+  .hero h1 small {
+    display: block;
+    font-size: 0.32em;
+    color: var(--blanc);
+    letter-spacing: 8px;
+    font-weight: 300;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+  .hero-sub {
+    margin: 20px 0 36px;
+    font-size: 1rem;
+    color: var(--gris);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .hero-sub span {
+    color: var(--or-clair);
+    font-weight: 600;
+  }
+
+  .btn-primary {
+    background: var(--or);
+    color: var(--noir);
+    border: none;
+    padding: 16px 36px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: var(--or-clair);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201,168,76,0.4);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--or);
+    border: 1px solid var(--or);
+    padding: 14px 30px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 14px;
+  }
+
+  .btn-outline:hover {
+    background: rgba(201,168,76,0.1);
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 72px 24px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    color: var(--or);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    text-align: center;
+    color: var(--gris);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 48px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--or);
+    margin: 12px auto 40px;
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--charbon); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background: var(--noir);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 24px 16px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--or);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { border-color: rgba(201,168,76,0.5); }
+
+  .service-icon { font-size: 2rem; margin-bottom: 10px; }
+
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--blanc);
+    margin-bottom: 6px;
+  }
+
+  .service-price {
+    color: var(--or);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .service-duration {
+    color: var(--gris);
+    font-size: 0.78rem;
+    margin-top: 4px;
+  }
+
+  /* ── RÉSERVATION ── */
+  #reservation { background: var(--noir); }
+
+  .form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--charbon);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 36px 28px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--noir);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--blanc);
+    padding: 14px 16px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--or);
+  }
+
+  .form-group select option { background: var(--charbon); }
+
+  /* ── ÉQUIPE ── */
+  #equipe { background: var(--charbon); }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .team-card {
+    background: var(--noir);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 28px 16px;
+    text-align: center;
+  }
+
+  .team-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--or), var(--charbon));
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border: 2px solid var(--or);
+  }
+
+  .team-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--blanc);
+    margin-bottom: 4px;
+  }
+
+  .team-role {
+    color: var(--or);
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── GALERIE ── */
+  #galerie { background: var(--noir); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1;
+    background: var(--charbon);
+    border: 1px solid rgba(201,168,76,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .gallery-item:first-child { grid-column: span 2; aspect-ratio: 2/1; }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(201,168,76,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--noir);
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+  /* ── AVIS ── */
+  #avis { background: var(--charbon); }
+
+  .avis-container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .avis-card {
+    background: var(--noir);
+    border-left: 3px solid var(--or);
+    padding: 24px 20px;
+    margin-bottom: 16px;
+  }
+
+  .stars { color: var(--or); font-size: 1rem; margin-bottom: 8px; }
+
+  .avis-text {
+    color: var(--blanc);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .avis-author {
+    color: var(--gris);
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+  }
+
+  /* ── HORAIRES & CONTACT ── */
+  #contact { background: var(--noir); }
+
+  .contact-grid {
+    max-width: 500px;
+    margin: 0 auto;
+    display: grid;
+    gap: 24px;
+  }
+
+  .contact-box {
+    background: var(--charbon);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 28px 24px;
+  }
+
+  .contact-box h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--or);
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+  }
+
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.9rem;
+  }
+
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row .day { color: var(--gris); }
+  .hours-row .time { color: var(--blanc); font-weight: 500; }
+  .hours-row .closed { color: var(--rouge); }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.9rem;
+  }
+
+  .contact-item:last-child { border-bottom: none; }
+  .contact-item .icon { font-size: 1.2rem; }
+  .contact-item a { color: var(--blanc); text-decoration: none; }
+  .contact-item a:hover { color: var(--or); }
+
+  .whatsapp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #25d366;
+    color: white;
+    padding: 16px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: all 0.3s;
+    max-width: 500px;
+    margin: 20px auto 0;
+    display: block;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+  }
+
+  .whatsapp-btn:hover {
+    background: #1ebe5d;
+    transform: translateY(-2px);
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--or);
+    color: var(--noir);
+    padding: 14px 28px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    transition: transform 0.4s ease;
+    z-index: 999;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charbon);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  footer .logo-foot {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--or);
+    font-weight: 900;
+    letter-spacing: 3px;
+  }
+
+  footer p {
+    color: var(--gris);
+    font-size: 0.8rem;
+    margin-top: 8px;
+  }
+
+  /* ── BADGE OUVERT/FERMÉ ── */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 18px;
+  }
+
+  .status-badge.open { border-color: #25d366; color: #25d366; }
+  .status-badge.closed { border-color: var(--rouge); color: var(--rouge); }
+
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  .open .dot { background: #25d366; }
+  .closed .dot { background: var(--rouge); animation: none; }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">TH<span>Barbershop</span></div>
+  <button class="menu-btn" onclick="openNav()">
+    <div></div><div></div><div></div>
+  </button>
+</header>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeNav()"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <button class="close-nav" onclick="closeNav()">✕</button>
+  <a href="#services" onclick="closeNav()">✂ Services & Tarifs</a>
+  <a href="#reservation" onclick="closeNav()">📅 Réservation</a>
+  <a href="#equipe" onclick="closeNav()">👤 Notre Équipe</a>
+  <a href="#galerie" onclick="closeNav()">📷 Galerie</a>
+  <a href="#avis" onclick="closeNav()">⭐ Avis</a>
+  <a href="#contact" onclick="closeNav()">📍 Horaires & Contact</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="scissors-icon">✂️</div>
+  <h1>TH<small>Barbershop</small></h1>
+  <p class="hero-sub">Saint-Georges de Beauce · <span>Qualité & Style</span></p>
+  <div id="statusBadge" class="status-badge"></div>
+  <br><br>
+  <a href="#reservation" class="btn-primary">Réserver maintenant</a>
+  <br>
+  <a href="#services" class="btn-outline">Voir nos services</a>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <h2 class="section-title">Nos Services</h2>
+  <div class="divider"></div>
+  <p class="section-sub">Tarifs & prestations</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">✂️</div>
+      <div class="service-name">Coupe Homme</div>
+      <div class="service-price">25$</div>
+      <div class="service-duration">30–45 min</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🪒</div>
+      <div class="service-name">Rasage</div>
+      <div class="service-price">20$</div>
+      <div class="service-duration">20–30 min</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💈</div>
+      <div class="service-name">Coupe + Barbe</div>
+      <div class="service-price">38$</div>
+      <div class="service-duration">50–60 min</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">👦</div>
+      <div class="service-name">Coupe Enfant</div>
+      <div class="service-price">18$</div>
+      <div class="service-duration">20–30 min</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <div class="service-name">Dégradé</div>
+      <div class="service-price">28$</div>
+      <div class="service-duration">35–45 min</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <div class="service-name">Coloration</div>
+      <div class="service-price">45$</div>
+      <div class="service-duration">60–90 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSERVATION -->
+<section id="reservation">
+  <h2 class="section-title">Réservation</h2>
+  <div class="divider"></div>
+  <p class="section-sub">Choisissez votre créneau</p>
+  <div class="form-container">
+    <div class="form-group">
+      <label>Votre prénom</label>
+      <input type="text" id="fname" placeholder="Ex : Jean-Philippe">
+    </div>
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="tel" id="fphone" placeholder="418-XXX-XXXX">
+    </div>
+    <div class="form-group">
+      <label>Service</label>
+      <select id="fservice">
+        <option value="">— Choisir un service —</option>
+        <option>Coupe Homme – 25$</option>
+        <option>Rasage – 20$</option>
+        <option>Coupe + Barbe – 38$</option>
+        <option>Coupe Enfant – 18$</option>
+        <option>Dégradé – 28$</option>
+        <option>Coloration – 45$</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Date souhaitée</label>
+      <input type="date" id="fdate">
+    </div>
+    <div class="form-group">
+      <label>Heure souhaitée</label>
+      <select id="ftime">
+        <option>9h00</option><option>9h30</option>
+        <option>10h00</option><option>10h30</option>
+        <option>11h00</option><option>11h30</option>
+        <option>13h00</option><option>13h30</option>
+        <option>14h00</option><option>14h30</option>
+        <option>15h00</option><option>15h30</option>
+        <option>16h00</option><option>16h30</option>
+        <option>17h00</option>
+      </select>
+    </div>
+    <button class="btn-primary" style="width:100%; margin-top:8px;" onclick="reserverWhatsApp()">
+      📲 Confirmer via WhatsApp
+    </button>
+  </div>
+</section>
+
+<!-- ÉQUIPE -->
+<section id="equipe">
+  <h2 class="section-title">Notre Équipe</h2>
+  <div class="divider"></div>
+  <p class="section-sub">Des professionnels à votre service</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">💈</div>
+      <div class="team-name">Thomas</div>
+      <div class="team-role">Fondateur · Maître Barbier</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">✂️</div>
+      <div class="team-name">Hugo</div>
+      <div class="team-role">Barbier · Spécialiste Dégradé</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section id="galerie">
+  <h2 class="section-title">Galerie</h2>
+  <div class="divider"></div>
+  <p class="section-sub">Nos réalisations</p>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <span>💈</span>
+      <div class="gallery-overlay">Notre salon</div>
+    </div>
+    <div class="gallery-item">
+      <span>✂️</span>
+      <div class="gallery-overlay">Coupe classique</div>
+    </div>
+    <div class="gallery-item">
+      <span>🪒</span>
+      <div class="gallery-overlay">Rasage précis</div>
+    </div>
+    <div class="gallery-item">
+      <span>⚡</span>
+      <div class="gallery-overlay">Dégradé moderne</div>
+    </div>
+    <div class="gallery-item">
+      <span>🎨</span>
+      <div class="gallery-overlay">Coloration</div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section id="avis">
+  <h2 class="section-title">Avis Clients</h2>
+  <div class="divider"></div>
+  <p class="section-sub">Ce qu'ils disent de nous</p>
+  <div class="avis-container">
+    <div class="avis-card">
+      <div class="stars">★★★★★</div>
+      <div class="avis-text">« Excellent service, Thomas est un vrai professionnel. Mon dégradé est parfait à chaque fois. Je recommande fortement ! »</div>
+      <div class="avis-author">— Mathieu L. · Saint-Georges</div>
+    </div>
+    <div class="avis-card">
+      <div class="stars">★★★★★</div>
+      <div class="avis-text">« Ambiance super agréable, salon propre et moderne. Hugo fait un travail impeccable sur la barbe. »</div>
+      <div class="avis-author">— Kevin P. · Beauceville</div>
+    </div>
+    <div class="avis-card">
+      <div class="stars">★★★★☆</div>
+      <div class="avis-text">« Très bonne coupe, rapport qualité-prix imbattable à Saint-Georges. Je reviens depuis 2 ans ! »</div>
+      <div class="avis-author">— Simon B. · Saint-Georges</div>
+    </div>
+  </div>
+  <br>
+  <div style="text-align:center;">
+    <a href="https://www.google.com/maps" target="_blank" class="btn-outline">⭐ Laisser un avis Google</a>
+  </div>
+</section>
+
+<!-- CONTACT & HORAIRES -->
+<section id="contact">
+  <h2 class="section-title">Horaires & Contact</h2>
+  <div class="divider"></div>
+  <div class="contact-grid">
+    <div class="contact-box">
+      <h3>🕐 Horaires d'ouverture</h3>
+      <div class="hours-row"><span class="day">Lundi</span><span class="closed">Fermé</span></div>
+      <div class="hours-row"><span class="day">Mardi – Vendredi</span><span class="time">9h – 18h</span></div>
+      <div class="hours-row"><span class="day">Samedi</span><span class="time">9h – 16h</span></div>
+      <div class="hours-row"><span class="day">Dimanche</span><span class="closed">Fermé</span></div>
+    </div>
+    <div class="contact-box">
+      <h3>📍 Nous trouver</h3>
+      <div class="contact-item">
+        <span class="icon">📍</span>
+        <span>Saint-Georges de Beauce, QC</span>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📞</span>
+        <a href="tel:4185551234">418-555-1234</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📧</span>
+        <a href="mailto:info@thbarbershop.ca">info@thbarbershop.ca</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📘</span>
+        <a href="#">Facebook TH Barbershop</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📸</span>
+        <a href="#">Instagram @thbarbershop</a>
+      </div>
+    </div>
+  </div>
+  <a class="whatsapp-btn" href="https://wa.me/14185551234" target="_blank">
+    💬 Nous écrire sur WhatsApp
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo-foot">TH Barbershop</div>
+  <p>Saint-Georges de Beauce · Qualité & Style depuis 2020</p>
+  <p style="margin-top:8px; font-size:0.75rem;">© 2026 TH Barbershop — Tous droits réservés</p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✅ Demande envoyée via WhatsApp !</div>
+
+<script>
+  // Menu
+  function openNav() {
+    document.getElementById('nav').classList.add('open');
+    document.getElementById('overlay').classList.add('show');
+  }
+  function closeNav() {
+    document.getElementById('nav').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Badge ouvert/fermé
+  function updateStatus() {
+    const now = new Date();
+    const day = now.getDay(); // 0=dim,1=lun,...6=sam
+    const hour = now.getHours();
+    const badge = document.getElementById('statusBadge');
+    let open = false;
+
+    if (day >= 2 && day <= 5 && hour >= 9 && hour < 18) open = true;
+    if (day === 6 && hour >= 9 && hour < 16) open = true;
+
+    badge.className = 'status-badge ' + (open ? 'open' : 'closed');
+    badge.innerHTML = `<div class="dot"></div>${open ? 'Ouvert maintenant' : 'Fermé actuellement'}`;
+  }
+  updateStatus();
+
+  // Date min = aujourd'hui
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('fdate').min = today;
+  document.getElementById('fdate').value = today;
+
+  // Réservation WhatsApp
+  function reserverWhatsApp() {
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const service = document.getElementById('fservice').value;
+    const date = document.getElementById('fdate').value;
+    const time = document.getElementById('ftime').value;
+
+    if (!name || !service || !date) {
+      alert('Veuillez remplir votre prénom, le service et la date.');
+      return;
+    }
+
+    const msg = encodeURIComponent(
+      `Bonjour TH Barbershop ! 👋\n\nJe voudrais réserver :\n` +
+      `• Nom : ${name}\n• Téléphone : ${phone || 'non précisé'}\n` +
+      `• Service : ${service}\n• Date : ${date}\n• Heure : ${time}\n\nMerci !`
+    );
+
+    window.open(`https://wa.me/14185551234?text=${msg}`, '_blank');
+
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+</script>
+</body>
+</html>
