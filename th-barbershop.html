@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -667,9 +668,28 @@
   <p class="hero-sub">Saint-Georges de Beauce · <span>Qualité & Style</span></p>
   <div id="statusBadge" class="status-badge"></div>
   <br><br>
-  <a href="#reservation" class="btn-primary">Réserver maintenant</a>
+  <button class="btn-primary" onclick="document.getElementById('reservation').scrollIntoView({behavior:'smooth'})">Réserver maintenant</button>
   <br>
-  <a href="#services" class="btn-outline">Voir nos services</a>
+  <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Voir nos services</button>
+</section>
+
+<!-- À PROPOS -->
+<section id="apropos" style="background:var(--charbon);">
+  <h2 class="section-title">À Propos</h2>
+  <div class="divider"></div>
+  <div style="max-width:500px;margin:0 auto;text-align:center;line-height:1.8;color:var(--blanc);font-size:0.97rem;">
+    <p>Depuis <strong style="color:var(--or)">2022</strong>, TH Barbershop s'impose comme une référence incontournable à Saint-Georges de Beauce. Toujours à l'affût des dernières tendances, notre équipe de professionnels passionnés relève chaque défi avec précision et créativité.</p>
+    <br>
+    <p>Dans une atmosphère chaleureuse et conviviale, nous prenons soin de tes cheveux, répondons à tes besoins et veillons à ce que chaque visite soit une expérience agréable et mémorable. Parce que ton style, c'est notre fierté.</p>
+  </div>
+  <div style="max-width:500px;margin:36px auto 0;text-align:center;">
+    <p style="color:var(--gris);font-size:0.78rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">Partager notre salon</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a id="shareWhatsapp" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25d366;color:white;padding:12px 20px;text-decoration:none;font-weight:700;font-size:0.85rem;letter-spacing:1px;">💬 WhatsApp</a>
+      <a id="shareFacebook" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#1877f2;color:white;padding:12px 20px;text-decoration:none;font-weight:700;font-size:0.85rem;letter-spacing:1px;">📘 Facebook</a>
+      <a href="https://www.instagram.com/" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white;padding:12px 20px;text-decoration:none;font-weight:700;font-size:0.85rem;letter-spacing:1px;">📸 Instagram</a>
+    </div>
+  </div>
 </section>
 
 <!-- SERVICES -->
@@ -681,37 +701,31 @@
     <div class="service-card">
       <div class="service-icon">✂️</div>
       <div class="service-name">Coupe Homme</div>
-      <div class="service-price">25$</div>
+      <div class="service-price">30$</div>
       <div class="service-duration">30–45 min</div>
     </div>
     <div class="service-card">
-      <div class="service-icon">🪒</div>
-      <div class="service-name">Rasage</div>
-      <div class="service-price">20$</div>
+      <div class="service-icon">👦</div>
+      <div class="service-name">Coupe Enfant</div>
+      <div class="service-price">25$</div>
       <div class="service-duration">20–30 min</div>
     </div>
     <div class="service-card">
       <div class="service-icon">💈</div>
       <div class="service-name">Coupe + Barbe</div>
-      <div class="service-price">38$</div>
+      <div class="service-price">40$</div>
       <div class="service-duration">50–60 min</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">👦</div>
-      <div class="service-name">Coupe Enfant</div>
-      <div class="service-price">18$</div>
-      <div class="service-duration">20–30 min</div>
     </div>
     <div class="service-card">
       <div class="service-icon">⚡</div>
       <div class="service-name">Dégradé</div>
-      <div class="service-price">28$</div>
+      <div class="service-price">30$</div>
       <div class="service-duration">35–45 min</div>
     </div>
-    <div class="service-card">
+    <div class="service-card" style="grid-column:span 2;">
       <div class="service-icon">🎨</div>
       <div class="service-name">Coloration</div>
-      <div class="service-price">45$</div>
+      <div class="service-price">60$</div>
       <div class="service-duration">60–90 min</div>
     </div>
   </div>
@@ -735,12 +749,11 @@
       <label>Service</label>
       <select id="fservice">
         <option value="">— Choisir un service —</option>
-        <option>Coupe Homme – 25$</option>
-        <option>Rasage – 20$</option>
-        <option>Coupe + Barbe – 38$</option>
-        <option>Coupe Enfant – 18$</option>
-        <option>Dégradé – 28$</option>
-        <option>Coloration – 45$</option>
+        <option>Coupe Homme – 30$</option>
+        <option>Coupe Enfant – 25$</option>
+        <option>Coupe + Barbe – 40$</option>
+        <option>Dégradé – 30$</option>
+        <option>Coloration – 60$</option>
       </select>
     </div>
     <div class="form-group">
@@ -770,17 +783,12 @@
 <section id="equipe">
   <h2 class="section-title">Notre Équipe</h2>
   <div class="divider"></div>
-  <p class="section-sub">Des professionnels à votre service</p>
-  <div class="team-grid">
+  <p class="section-sub">Un professionnel à votre service</p>
+  <div style="max-width:260px;margin:0 auto;">
     <div class="team-card">
       <div class="team-avatar">💈</div>
-      <div class="team-name">Thomas</div>
+      <div class="team-name">Harley</div>
       <div class="team-role">Fondateur · Maître Barbier</div>
-    </div>
-    <div class="team-card">
-      <div class="team-avatar">✂️</div>
-      <div class="team-name">Hugo</div>
-      <div class="team-role">Barbier · Spécialiste Dégradé</div>
     </div>
   </div>
 </section>
@@ -791,25 +799,53 @@
   <div class="divider"></div>
   <p class="section-sub">Nos réalisations</p>
   <div class="gallery-grid">
-    <div class="gallery-item">
-      <span>💈</span>
-      <div class="gallery-overlay">Notre salon</div>
+    <div class="gallery-item" style="grid-column:span 2;">
+      <img src="images/IMG-20260430-WA0071.jpg" alt="TH Barbershop" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Harley au travail</div>
     </div>
     <div class="gallery-item">
-      <span>✂️</span>
-      <div class="gallery-overlay">Coupe classique</div>
+      <img src="images/IMG-20260430-WA0072.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Dégradé</div>
     </div>
     <div class="gallery-item">
-      <span>🪒</span>
-      <div class="gallery-overlay">Rasage précis</div>
+      <img src="images/IMG-20260430-WA0073.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Coupe nette</div>
     </div>
     <div class="gallery-item">
-      <span>⚡</span>
-      <div class="gallery-overlay">Dégradé moderne</div>
+      <img src="images/IMG-20260430-WA0074.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Style moderne</div>
     </div>
     <div class="gallery-item">
-      <span>🎨</span>
-      <div class="gallery-overlay">Coloration</div>
+      <img src="images/IMG-20260430-WA0075.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Précision</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/IMG-20260430-WA0076.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Twists</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/IMG-20260430-WA0077.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Dreads</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/IMG-20260430-WA0078.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Fade</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/IMG-20260430-WA0093.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Coupe afro</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/IMG-20260430-WA0094.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Skin fade</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/IMG-20260430-WA0095.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Style unique</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/IMG-20260430-WA0096.jpg" alt="Coupe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-overlay">Finition parfaite</div>
     </div>
   </div>
 </section>
@@ -822,17 +858,17 @@
   <div class="avis-container">
     <div class="avis-card">
       <div class="stars">★★★★★</div>
-      <div class="avis-text">« Excellent service, Thomas est un vrai professionnel. Mon dégradé est parfait à chaque fois. Je recommande fortement ! »</div>
+      <div class="avis-text">« Harley est un vrai artiste ! Mon dégradé est impeccable à chaque visite. L'ambiance du salon est top, je recommande fortement. »</div>
       <div class="avis-author">— Mathieu L. · Saint-Georges</div>
     </div>
     <div class="avis-card">
       <div class="stars">★★★★★</div>
-      <div class="avis-text">« Ambiance super agréable, salon propre et moderne. Hugo fait un travail impeccable sur la barbe. »</div>
+      <div class="avis-text">« Salon propre, moderne et accueillant. Harley sait exactement ce qu'il fait. Résultat toujours au-delà de mes attentes. »</div>
       <div class="avis-author">— Kevin P. · Beauceville</div>
     </div>
     <div class="avis-card">
       <div class="stars">★★★★☆</div>
-      <div class="avis-text">« Très bonne coupe, rapport qualité-prix imbattable à Saint-Georges. Je reviens depuis 2 ans ! »</div>
+      <div class="avis-text">« Excellent rapport qualité-prix. Je reviens depuis l'ouverture en 2022 et je n'ai jamais été déçu ! »</div>
       <div class="avis-author">— Simon B. · Saint-Georges</div>
     </div>
   </div>
@@ -862,23 +898,23 @@
       </div>
       <div class="contact-item">
         <span class="icon">📞</span>
-        <a href="tel:4185551234">418-555-1234</a>
+        <a href="tel:+18739231327">+1 (873) 923-1327</a>
       </div>
       <div class="contact-item">
-        <span class="icon">📧</span>
-        <a href="mailto:info@thbarbershop.ca">info@thbarbershop.ca</a>
+        <span class="icon">💬</span>
+        <a href="https://wa.me/18739231327" target="_blank">WhatsApp</a>
       </div>
       <div class="contact-item">
         <span class="icon">📘</span>
-        <a href="#">Facebook TH Barbershop</a>
+        <a href="https://www.facebook.com/" target="_blank">Facebook TH Barbershop</a>
       </div>
       <div class="contact-item">
         <span class="icon">📸</span>
-        <a href="#">Instagram @thbarbershop</a>
+        <a href="https://www.instagram.com/" target="_blank">Instagram @thbarbershop</a>
       </div>
     </div>
   </div>
-  <a class="whatsapp-btn" href="https://wa.me/14185551234" target="_blank">
+  <a class="whatsapp-btn" href="https://wa.me/18739231327" target="_blank">
     💬 Nous écrire sur WhatsApp
   </a>
 </section>
@@ -886,7 +922,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="logo-foot">TH Barbershop</div>
-  <p>Saint-Georges de Beauce · Qualité & Style depuis 2020</p>
+  <p>Saint-Georges de Beauce · Qualité & Style depuis 2022</p>
   <p style="margin-top:8px; font-size:0.75rem;">© 2026 TH Barbershop — Tous droits réservés</p>
 </footer>
 
@@ -904,26 +940,25 @@
     document.getElementById('overlay').classList.remove('show');
   }
 
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
+  // Smooth scroll nav links only
+  document.querySelectorAll('nav a').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
       const target = document.querySelector(a.getAttribute('href'));
       if (target) target.scrollIntoView({ behavior: 'smooth' });
+      closeNav();
     });
   });
 
   // Badge ouvert/fermé
   function updateStatus() {
     const now = new Date();
-    const day = now.getDay(); // 0=dim,1=lun,...6=sam
+    const day = now.getDay();
     const hour = now.getHours();
     const badge = document.getElementById('statusBadge');
     let open = false;
-
     if (day >= 2 && day <= 5 && hour >= 9 && hour < 18) open = true;
     if (day === 6 && hour >= 9 && hour < 16) open = true;
-
     badge.className = 'status-badge ' + (open ? 'open' : 'closed');
     badge.innerHTML = `<div class="dot"></div>${open ? 'Ouvert maintenant' : 'Fermé actuellement'}`;
   }
@@ -933,6 +968,12 @@
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('fdate').min = today;
   document.getElementById('fdate').value = today;
+
+  // Liens de partage
+  const pageUrl = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent('TH Barbershop – Saint-Georges de Beauce');
+  document.getElementById('shareWhatsapp').href = 'https://wa.me/?text=' + pageTitle + '%20' + pageUrl;
+  document.getElementById('shareFacebook').href = 'https://www.facebook.com/sharer/sharer.php?u=' + pageUrl;
 
   // Réservation WhatsApp
   function reserverWhatsApp() {
@@ -948,12 +989,12 @@
     }
 
     const msg = encodeURIComponent(
-      `Bonjour TH Barbershop ! 👋\n\nJe voudrais réserver :\n` +
-      `• Nom : ${name}\n• Téléphone : ${phone || 'non précisé'}\n` +
-      `• Service : ${service}\n• Date : ${date}\n• Heure : ${time}\n\nMerci !`
+      'Bonjour TH Barbershop ! 👋\n\nJe voudrais réserver :\n' +
+      '• Nom : ' + name + '\n• Téléphone : ' + (phone || 'non précisé') + '\n' +
+      '• Service : ' + service + '\n• Date : ' + date + '\n• Heure : ' + time + '\n\nMerci !'
     );
 
-    window.open(`https://wa.me/14185551234?text=${msg}`, '_blank');
+    window.open('https://wa.me/18739231327?text=' + msg, '_blank');
 
     const toast = document.getElementById('toast');
     toast.classList.add('show');
